@@ -34,3 +34,41 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## Prisma 
+npm install prisma -D
+npm install @prisma/client
+npx prisma init
+
+init으로 생성된 schema.prisma File에 provider를 'mongodb'로 변경한다.
+
+.env file을 생성하고 DATABASE_URL MongoDb Atlast Url을 기록한다.
+
+schema.prisma에 data model을 생성한다
+
+## MongoDb 생성
+npx prisma db push
+npx prisma generate
+
+## Share Prisma Client across the Project
+prisma folder에 prisma.ts 생성
+
+import { PrismaClient } from '@prisma/client'
+
+declare global{
+   var prisma: PrismaClient | undefined
+}
+const prisma = global.prisma || new PrismaClient()
+
+if(process.env.NODE_ENV === 'development') global.prisma = prisma
+
+export default prisma
+
+## ERD 생성
+Prisma Generate UML Extension 설치
+
+- prisma folder에서 schema.prisma file click
+- editor 우측 상단에 Generate Prisma UML 버튼 클릭
+
+
